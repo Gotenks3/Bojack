@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Owner; 
 use App\Http\Requests\OwnersStoreRequest;
+use App\Http\Requests\OwnersUpdateRequest;
 use App\Models\Shop;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -27,7 +28,7 @@ class OwnersController extends Controller
      */
     public function index()
     {
-        $owners = Owner::select('name', 'email', 'created_at')->get();
+        $owners = Owner::select('id', 'name', 'email', 'created_at')->get();
 
         return view('admin.owners.index', compact('owners'));
     }
@@ -56,7 +57,9 @@ class OwnersController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('admin.owners.index');
+        return redirect()
+        ->route('admin.owners.index')
+        ->with('message', 'オーナーを登録しました。');
     }
 
     /**
@@ -78,7 +81,9 @@ class OwnersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+
+        return view('admin.owners.edit', compact('owner'));
     }
 
     /**
@@ -88,9 +93,22 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OwnersUpdateRequest $request, $id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+
+        $owner->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ])->save();
+
+        // $owner
+
+        return redirect()
+        ->route('admin.owners.index')
+        ->with(['message' => 'オーナー情報を編集しました。',
+        'status' => 'info']);
     }
 
     /**
@@ -101,6 +119,11 @@ class OwnersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Owner::findOrFail($id)->delete(); //ソフトデリート
+
+        return redirect()
+        ->route('admin.owners.index')
+        ->with(['message' => 'オーナー情報を削除しました。',
+        'status' => 'alert']);
     }
 }
