@@ -30,7 +30,7 @@ class OwnersStoreRequest extends FormRequest
         ];
     }
 
-        /**
+    /**
      *  バリデーション項目名定義
      * @return array
      */
