@@ -74,6 +74,8 @@ class ShopController extends Controller
             $shop->filename = $fileNameToStore;
         }
 
+        $shop->save();
+
         return redirect()
         ->route('owner.shops.index')
         ->with(['message' => '店舗情報を更新しました。',
