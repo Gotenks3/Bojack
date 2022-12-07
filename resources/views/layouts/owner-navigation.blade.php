@@ -23,6 +23,9 @@
                     <x-nav-link :href="route('owner.images.index')" :active="request()->routeIs('owner.images.index')">
                         画像情報
                     </x-nav-link>
+                    <x-nav-link :href="route('owner.products.index')" :active="request()->routeIs('owner.products.index')">
+                        商品情報
+                    </x-nav-link>
                 </div>
             </div>
 
