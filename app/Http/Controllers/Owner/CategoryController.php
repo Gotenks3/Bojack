@@ -3,37 +3,18 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Image;
-use Illuminate\Support\Facades\DB;
-use App\Models\Product;
-use App\Models\Stock;
-use App\Models\Shop;
 use App\Models\PrimaryCategory;
-use App\Models\Owner;
-use App\Http\Requests\ProductRequest;
+use App\Models\SecondaryCategory;
+use App\Http\Requests\CategoryStoreRequest;
+use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
 
     public function __construct()
     {
         $this->middleware('auth:owners');
-
-        $this->middleware(function ($request, $next) {
-
-            $id = $request->route()->parameter('product'); 
-            if(!is_null($id)){ 
-            $productsOwnerId = Product::findOrFail($id)->shop->owner->id;
-                $productId = (int)$productsOwnerId; 
-                if($productId !== Auth::id()){ 
-                    abort(404);
-                }
-            }
-            return $next($request);
-        });
-    }
+    } 
 
     /**
      * Display a listing of the resource.
@@ -42,11 +23,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // N+1問題
-        $ownerInfo = Owner::with('shop.product.imageFirst')
-        ->where('id', Auth::id())->get();
+        $categories = PrimaryCategory::with('secondary')->paginate(3);
 
-        return view('owner.products.index', compact('ownerInfo'));
+        return view('owner.categories.index', compact('categories'));
     }
 
     /**
@@ -56,7 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('owner.categories.create');
     }
 
     /**
@@ -65,9 +44,22 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        $primary_category = PrimaryCategory::create([
+            'name' => $request->primaryName,
+            'sort_order' => $request->primary_sort_order,
+        ]);
+
+        SecondaryCategory::create([
+            'name' => $request->secondaryName,
+            'sort_order' => $request->secondary_sort_order,
+            'primary_category_id' => $primary_category->id,
+        ]);
+
+        return redirect()->route('owner.categories.index')
+        ->with(['message' => 'カテゴリーを作成しました。',
+        'status' => 'info']);
     }
 
     /**
