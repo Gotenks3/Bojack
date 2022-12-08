@@ -17,7 +17,7 @@ class ImageService
     } else {
       $file = $imageFile;
     }
-
+    
     $fileName = uniqid(rand().'_');
     $extension = $file->extension();
     $fileNameToStore = $fileName. '.' . $extension;
