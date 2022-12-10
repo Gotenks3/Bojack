@@ -17,23 +17,16 @@ class ShopSeeder extends Seeder
         DB::table('shops')->insert([
             [
                 'owner_id' => 1,
-                'name' => '渋谷',
-                'information' => 'ここにお店の情報が入ります。ここにお店の情報が入ります。ここにお店の情報が入ります。',
-                'filename' => '',
+                'name' => 'スーパーベビー',
+                'information' => 'リベンジデスボール',
+                'filename' => 'sample7.jpeg',
                 'is_selling' => true    
             ],
             [
                 'owner_id' => 2,
-                'name' => '新宿',
-                'information' => 'ここにお店の情報が入ります。ここにお店の情報が入ります。ここにお店の情報が入ります。',
-                'filename' => '',
-                'is_selling' => true    
-            ],
-            [
-                'owner_id' => 3,
-                'name' => '品川',
-                'information' => 'ここにお店の情報が入ります。ここにお店の情報が入ります。ここにお店の情報が入ります。',
-                'filename' => '',
+                'name' => 'スーパー17号',
+                'information' => '電撃地獄玉',
+                'filename' => 'sample8.jpeg',
                 'is_selling' => true    
             ],
             ]);
