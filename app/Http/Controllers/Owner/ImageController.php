@@ -8,13 +8,12 @@ use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UploadImageRequest;
-use App\Http\Requests\ImageRequest;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
 
+
 class ImageController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -33,11 +32,7 @@ class ImageController extends Controller
         });
     } 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $images = Image::where('owner_id', Auth::id())
@@ -79,43 +74,23 @@ class ImageController extends Controller
 
         return redirect()
         ->route('owner.images.index')
-        ->with(['message' => '画像を登録しました。',
+        ->with(['message' => '画像登録を実施しました。',
         'status' => 'info']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $image = Image::findOrFail($id);
-
         return view('owner.images.edit', compact('image'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ImageRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'string|max:50'
+        ]);
+
         $image = Image::findOrFail($id);
         $image->title = $request->title;
         $image->save();
@@ -126,15 +101,38 @@ class ImageController extends Controller
         'status' => 'info']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $image = Image::findOrFail($id);
+
+        $imageInProducts = Product::where('image1', $image->id)
+        ->orWhere('image2', $image->id)
+        ->orWhere('image3', $image->id)
+        ->orWhere('image4', $image->id)
+        ->get();
+
+        if($imageInProducts){
+            $imageInProducts->each(function($product) use($image){
+                if($product->image1 === $image->id){
+                    $product->image1 = null;
+                    $product->save();
+                }
+                if($product->image2 === $image->id){
+                    $product->image2 = null;
+                    $product->save();
+                }
+                if($product->image3 === $image->id){
+                    $product->image3 = null;
+                    $product->save();
+                }
+                if($product->image4 === $image->id){
+                    $product->image4 = null;
+                    $product->save();
+                }
+            });
+        }
+
         $filePath = 'public/products/' . $image->filename;
 
         if(Storage::exists($filePath)){
