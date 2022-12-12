@@ -7,8 +7,8 @@
                 <div class="flex-shrink-0 flex items-center">
                     <div class="w-12">
                         <a href="{{ route('user.items.index') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                    </a>
+                            <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        </a>
                     </div>
                 </div>
 
@@ -20,13 +20,17 @@
                 </div>
             </div>
 
+            <x-nav-link :href="route('user.cart.index')" :active="request()->routeIs('user.cart.index')">
+                        カートを表示
+            </x-nav-link>
+
             <div class="flex-shrink-0 flex items-center">
-                    <div class="w-32">
-                        <a href="{{ route('user.items.index') }}">
+                <div class="w-32">
+                    <a href="{{ route('user.items.index') }}">
                         <x-image-logo class="block h-20 w-auto fill-current text-gray-600" />
                     </a>
-                    </div>
                 </div>
+            </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -48,8 +52,7 @@
                         <form method="POST" action="{{ route('user.logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('user.logout')"
-                                    onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('user.logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log out') }}
                             </x-dropdown-link>
@@ -98,8 +101,7 @@
                 <form method="POST" action="{{ route('user.logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('user.logout')"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('user.logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log out') }}
                     </x-responsive-nav-link>
