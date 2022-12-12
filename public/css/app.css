@@ -744,10 +744,6 @@ select {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
-.my-2 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
 .my-3 {
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
@@ -755,6 +751,10 @@ select {
 .my-6 {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
+}
+.my-2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .ml-3 {
     margin-left: 0.75rem;
@@ -804,11 +804,8 @@ select {
 .mb-12 {
     margin-bottom: 3rem;
 }
-.mr-3 {
-    margin-right: 0.75rem;
-}
-.ml-auto {
-    margin-left: auto;
+.mt-32 {
+    margin-top: 8rem;
 }
 .mb-1 {
     margin-bottom: 0.25rem;
@@ -819,14 +816,20 @@ select {
 .mb-2 {
     margin-bottom: 0.5rem;
 }
-.mt-32 {
-    margin-top: 8rem;
-}
 .mt-6 {
     margin-top: 1.5rem;
 }
 .mb-8 {
     margin-bottom: 2rem;
+}
+.ml-auto {
+    margin-left: auto;
+}
+.mr-3 {
+    margin-right: 0.75rem;
+}
+.mr-4 {
+    margin-right: 1rem;
 }
 .block {
     display: block;
@@ -1021,6 +1024,11 @@ select {
     margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
 .overflow-auto {
     overflow: auto;
 }
@@ -1116,6 +1124,10 @@ select {
 .border-red-400 {
     --tw-border-opacity: 1;
     border-color: rgb(248 113 113 / var(--tw-border-opacity));
+}
+.border-gray-500 {
+    --tw-border-opacity: 1;
+    border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 .bg-white {
     --tw-bg-opacity: 1;
@@ -1275,9 +1287,6 @@ select {
 .pl-3 {
     padding-left: 0.75rem;
 }
-.pr-10 {
-    padding-right: 2.5rem;
-}
 .pr-4 {
     padding-right: 1rem;
 }
@@ -1286,6 +1295,9 @@ select {
 }
 .pb-0 {
     padding-bottom: 0px;
+}
+.pr-10 {
+    padding-right: 2.5rem;
 }
 .text-left {
     text-align: left;
@@ -1851,11 +1863,26 @@ select {
     }
 }
 @media (min-width: 1024px) {
+    .lg\:mb-0 {
+        margin-bottom: 0px;
+    }
+    .lg\:mr-2 {
+        margin-right: 0.5rem;
+    }
+    .lg\:flex {
+        display: flex;
+    }
     .lg\:w-2\/3 {
         width: 66.666667%;
     }
     .lg\:w-1\/2 {
         width: 50%;
+    }
+    .lg\:w-1\/4 {
+        width: 25%;
+    }
+    .lg\:justify-around {
+        justify-content: space-around;
     }
     .lg\:px-8 {
         padding-left: 2rem;
