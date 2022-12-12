@@ -32,6 +32,14 @@
                 </div>
             </div>
 
+            <div class="flex-shrink-0 flex items-center">
+                <div class="w-32">
+                    <a href="{{ route('user.items.index') }}">
+                        <x-image-logo class="block h-20 w-auto fill-current text-gray-600" />
+                    </a>
+                </div>
+            </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">

@@ -15,10 +15,18 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('user.items.index')" :active="request()->routeIs('user.items.index')">
-                        {{ __('ホーム') }}
+                        商品一覧
                     </x-nav-link>
                 </div>
             </div>
+
+            <div class="flex-shrink-0 flex items-center">
+                    <div class="w-32">
+                        <a href="{{ route('user.items.index') }}">
+                        <x-image-logo class="block h-20 w-auto fill-current text-gray-600" />
+                    </a>
+                    </div>
+                </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
