@@ -1,11 +1,11 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-black border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                  <div class="w-12">
+                  <div class="w-24">
                     <a href="{{ route('owner.dashboard') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
@@ -32,20 +32,14 @@
                 </div>
             </div>
 
-            <div class="flex-shrink-0 flex items-center">
-                <div class="w-32">
-                    <a href="{{ route('user.items.index') }}">
-                        <x-image-logo class="block h-20 w-auto fill-current text-gray-600" />
-                    </a>
-                </div>
-            </div>
-
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div class="mr-1">
+                                <i class="fa-solid fa-user fa-lg"></i>
+                            </div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -59,7 +53,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('owner.logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('owner.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -87,6 +80,30 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('owner.shops.index')" :active="request()->routeIs('owner.shops.index')">
+                店舗情報
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('owner.images.index')" :active="request()->routeIs('owner.images.index')">
+                画像情報
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('owner.products.index')" :active="request()->routeIs('owner.products.index')">
+                商品情報
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('owner.categories.index')" :active="request()->routeIs('owner.categories.index')">
+                カテゴリー
             </x-responsive-nav-link>
         </div>
 

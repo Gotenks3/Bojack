@@ -1,11 +1,11 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-black border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <div class="w-12">
+                    <div class="w-24">
                     <a href="{{ route('admin.dashboard') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
@@ -21,16 +21,8 @@
                         オーナー管理
                     </x-nav-link>
                     <x-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.expired-owners.index')">
-                        期限切れオーナー一覧
+                        期限切れオーナー
                     </x-nav-link>
-                </div>
-            </div>
-
-            <div class="flex-shrink-0 flex items-center">
-                <div class="w-32">
-                    <a href="{{ route('user.items.index') }}">
-                        <x-image-logo class="block h-20 w-auto fill-current text-gray-600" />
-                    </a>
                 </div>
             </div>
 
@@ -39,8 +31,9 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
-
+                            <div class="mr-1">
+                              <i class="fa-solid fa-user fa-lg"></i>
+                            </div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
