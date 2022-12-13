@@ -14,7 +14,6 @@ use App\Jobs\SendThanksMail;
 
 class ItemController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:users');
@@ -31,7 +30,7 @@ class ItemController extends Controller
             return $next($request);
         });
     }
-
+        
     public function index(Request $request)
     {
         // dd($request);
